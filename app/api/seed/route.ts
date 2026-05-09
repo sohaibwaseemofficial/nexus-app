@@ -8,20 +8,11 @@ const supabase = createClient(
 );
 
 export async function GET() {
-  // Check if already seeded
-  const { data, error } = await supabase
+  // Clear existing items for the demo user to ensure a fresh, repeatable demo
+  await supabase
     .from('items')
-    .select('id', { count: 'exact' })
-    .eq('user_id', 'demo-user')
-    .limit(1);
-
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
-
-  if (data && data.length > 0) {
-    return NextResponse.json({ seeded: false, message: 'Already seeded' });
-  }
+    .delete()
+    .eq('user_id', 'demo-user');
 
   const items = [
     ...mockEmails.map((e) => ({

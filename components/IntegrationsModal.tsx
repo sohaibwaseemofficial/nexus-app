@@ -10,7 +10,9 @@ interface Props {
 
 export default function IntegrationsModal({ isOpen, onClose }: Props) {
   const [copied, setCopied] = useState(false);
-  const webhookUrl = "https://nexus-app.vercel.app/api/webhook/user-123";
+  const webhookUrl = typeof window !== 'undefined' 
+    ? `${window.location.origin}/api/webhook/user-123`
+    : "";
 
   const handleCopy = () => {
     navigator.clipboard.writeText(webhookUrl);
