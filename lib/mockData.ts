@@ -1,85 +1,102 @@
 export const mockEmails = [
   {
-    title: "🚨 URGENT: Q4 Revenue Forecast Discrepancy",
-    body: "Hi Alex, I found a major error in the spreadsheet you shared. The Q4 projections are off by 15%. We have the Board meeting in 2 hours. Please fix and reshare ASAP.",
-    sender: "Sarah (CFO)",
+    title: "Q3 Budget: Urgent missing line items",
+    body: "Hi Alex, the legal team just flagged three missing line items in the Q3 draft. Please review the attached and update by 2 PM. This is critical.",
+    sender: "Priya (Finance)",
     isCritical: true
   },
   {
-    title: "Reminder: Company-wide 'Fun Friday' Zoom",
-    body: "Don't forget to join us at 4 PM for some trivia and casual chat! Wear your favorite hat.",
-    sender: "Culture Committee",
+    title: "Friday team lunch poll",
+    body: "Hey team, please vote for your preferred lunch spot for Friday.",
+    sender: "Office Bot",
     isCritical: false
   },
   {
-    title: "Security: New Login Detected",
-    body: "A new login was detected on your account from a Chrome browser on Windows in London. If this wasn't you, click here to secure your account.",
-    sender: "IT Security",
+    title: "Your weekly performance snapshot",
+    body: "Your productivity was up 12% this week. Great job!",
+    sender: "Analytics",
+    isCritical: false
+  },
+  {
+    title: "RE: Client presentation feedback",
+    body: "Alex, the slides look good but we need to change the pricing slide before the pitch. Can you update it by EOD?",
+    sender: "Sarah (Sales)",
     isCritical: true
   },
   {
-    title: "Weekly Newsletter: AI Weekly",
-    body: "Top stories: OpenAI's new model, Nvidia's earnings, and more. Read the full summary inside.",
-    sender: "AI Weekly",
+    title: "Birthday party for Ravi",
+    body: "We're celebrating Ravi's 30th this Friday at 5pm in the break room. Cake provided!",
+    sender: "HR",
     isCritical: false
   },
   {
-    title: "RE: Client Pitch - Acme Corp",
-    body: "The client loved the initial draft but wants to see more on the 'Intent Engine' feature. Can you add 2 slides on that before the 3 PM call?",
-    sender: "John (Sales)",
+    title: "Security alert: password reset required",
+    body: "Your password expires in 3 days. Please reset it before then to avoid being locked out.",
+    sender: "IT Support",
     isCritical: true
   },
   {
-    title: "Your Amazon Package has been Delivered",
-    body: "Your order for 'Noise-Cancelling Headphones' has been delivered to your porch.",
-    sender: "Amazon Notifications",
+    title: "Fwd: Cool article about AI",
+    body: "Thought you might find this interesting...",
+    sender: "Mike",
     isCritical: false
   },
   {
-    title: "Feedback on your recent code review",
-    body: "I left some comments on the PR for the auth service. Nothing major, mostly naming conventions.",
-    sender: "David (Lead Dev)",
-    isCritical: false
-  },
-  {
-    title: "Invitation: Quarterly Performance Review",
-    body: "Hi Alex, please find the invite for our review tomorrow. You'll need to submit your self-assessment by EOD.",
-    sender: "HR (Emily)",
+    title: "ACTION REQUIRED: Approve travel request",
+    body: "Your trip to Bangalore for the client meeting needs approval by noon today.",
+    sender: "Manager",
     isCritical: true
   },
   {
-    title: "50% OFF: Local Pizza favorites",
-    body: "Hungry? Get half off your favorite large pizza today only with code PIZZA50.",
-    sender: "Uber Eats",
+    title: "Newsletter: This week in tech",
+    body: "The top 10 stories from the tech world this week.",
+    sender: "TechCrunch",
     isCritical: false
   },
   {
-    title: "Draft: Q4 Marketing Strategy",
-    body: "Hey, I've put together the first draft. No rush on this, take a look when you have a spare moment next week.",
-    sender: "Karen (Marketing)",
+    title: "Reminder: Submit timesheet by 5 PM",
+    body: "This is a friendly reminder to submit your timesheet for this week.",
+    sender: "Finance",
+    isCritical: false
+  },
+  {
+    title: "Urgent: Server down in production",
+    body: "The payment gateway is not responding. Customers are getting errors. Need immediate attention.",
+    sender: "DevOps",
+    isCritical: true
+  },
+  {
+    title: "Your Amazon order has shipped",
+    body: "Your order #123-4567890-1234567 is on its way.",
+    sender: "Amazon",
     isCritical: false
   }
 ];
 
 export const mockCalendar = [
   {
-    title: "3:00 PM – Final Pitch: Acme Corp",
-    body: "Critical meeting. Ensure slides are updated. Attendees: Sarah, John, and Acme Stakeholders.",
+    title: "10:00 AM – Budget review with CEO",
+    body: "Agenda: finalize Q3 numbers. Prepare slides.",
     isCritical: true
   },
   {
-    title: "11:00 AM – Quick Sync: Finance Team",
-    body: "Checking in on the revenue forecast discrepancy. Sarah wants a status update.",
+    title: "2:00 PM – Stand-up meeting",
+    body: "Daily sync with the engineering team.",
+    isCritical: false
+  },
+  {
+    title: "4:30 PM – Call with potential client",
+    body: "Introductory call with Acme Corp. Review their requirements beforehand.",
     isCritical: true
   },
   {
-    title: "1:00 PM – Lunch with Mike",
-    body: "Catch up at the cafe around the corner.",
+    title: "6:00 PM – Yoga class",
+    body: "Weekly yoga session at the gym.",
     isCritical: false
   },
   {
-    title: "5:00 PM – Gym Session",
-    body: "Leg day. Don't skip it.",
-    isCritical: false
+    title: "11:30 AM – Performance review with HR",
+    body: "Your quarterly review. Please prepare a self-assessment.",
+    isCritical: true
   }
 ];
