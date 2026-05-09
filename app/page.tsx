@@ -6,6 +6,7 @@ import CalmScore from '../components/CalmScore';
 import ItemCard from '../components/ItemCard';
 import FocusMode from '../components/FocusMode';
 import ToastContainer, { ToastMessage } from '../components/Toast';
+import IntegrationsModal from '../components/IntegrationsModal';
 
 /* ─── Types ─────────────────────────────────────────────── */
 interface Item {
@@ -103,6 +104,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [rssLoading, setRssLoading] = useState(false);
   const [focusMode, setFocusMode] = useState(false);
+  const [isIntegrationsOpen, setIsIntegrationsOpen] = useState(false);
   const [filter, setFilter] = useState<FilterType>('all');
   const [snoozingId, setSnoozingId] = useState<number | null>(null);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
@@ -140,6 +142,15 @@ export default function Home() {
       setPrevScore(briefing?.calmScore ?? 0);
       setBriefing(data);
       setFilter('all');
+      
+      // Desktop Notification for Critical Items
+      const criticalCount = data.scores.filter((s: number) => s >= 75).length;
+      if (criticalCount > 0 && 'Notification' in window && Notification.permission === 'granted') {
+        new Notification("Nexus Briefing Ready", {
+          body: `You have ${criticalCount} critical items matching your intention.`,
+          icon: "/icon-192x192.png"
+        });
+      }
     } catch {
       addToast('Failed to generate briefing. Check your API keys.', 'error');
     } finally {
@@ -214,6 +225,8 @@ export default function Home() {
 
   return (
     <>
+      <IntegrationsModal isOpen={isIntegrationsOpen} onClose={() => setIsIntegrationsOpen(false)} />
+
       {/* Focus Mode overlay */}
       <AnimatePresence>
         {focusMode && focusItem && (
@@ -233,10 +246,17 @@ export default function Home() {
 
           {/* ── Header ── */}
           <motion.header
-            className="text-center mb-8 sm:mb-12"
+            className="text-center mb-8 sm:mb-12 relative"
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
           >
+            <button
+              onClick={() => setIsIntegrationsOpen(true)}
+              className="absolute right-0 top-0 sm:-right-8 text-gray-500 hover:text-white p-2 rounded-full hover:bg-white/5 transition"
+              title="Integrations & Settings"
+            >
+              ⚙️
+            </button>
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-sm text-xs text-[#8892a4] mb-4 border border-[rgba(99,102,241,0.2)]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#10b981] animate-pulse" />
               AI-Powered · Zero Noise · Free Tier

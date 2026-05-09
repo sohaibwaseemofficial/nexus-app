@@ -12,6 +12,10 @@ export const metadata: Metadata = {
   title: "Nexus — The Intent-Driven Information Engine",
   description:
     "Your information streams. One question. Zero noise. Nexus uses AI to transform hundreds of information items into a single, calm narrative briefing.",
+  manifest: "/manifest.json",
+  icons: {
+    apple: "/icon-192x192.png",
+  },
   keywords: ["information overload", "AI briefing", "productivity", "focus", "nexus"],
   openGraph: {
     title: "Nexus — One question. Zero noise.",
