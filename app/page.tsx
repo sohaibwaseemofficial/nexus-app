@@ -54,11 +54,37 @@ export default function Home() {
     return briefing.scores?.[idx] >= 80 || item.is_critical;
   });
 
+  const [rssLoading, setRssLoading] = useState(false);
+
+  const refreshRSS = async () => {
+    setRssLoading(true);
+    try {
+      await fetch('/api/rss-refresh');
+      // After adding items, re‑generate the briefing with the current intention
+      if (intention.trim()) {
+        await generateBriefing(); // we already have this function
+      }
+    } catch (err) {
+      console.error('RSS refresh failed:', err);
+    } finally {
+      setRssLoading(false);
+    }
+  };
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4 md:p-8">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <h1 className="text-5xl font-bold text-center text-gray-800 mb-2">Nexus</h1>
+        <div className="text-center mb-4">
+          <button
+            onClick={refreshRSS}
+            disabled={rssLoading}
+            className="px-4 py-2 bg-emerald-500 text-white rounded-lg hover:bg-emerald-600 disabled:opacity-50 transition"
+          >
+            {rssLoading ? 'Fetching...' : '🔄 Pull Live News'}
+          </button>
+        </div>
         <p className="text-center text-gray-500 mb-10">Your information streams. One question. Zero noise.</p>
 
         {/* Intention Input Card */}
@@ -168,7 +194,18 @@ export default function Home() {
                           </div>
                           <span className="text-gray-600 w-8 text-right">{score}%</span>
                         </div>
-                        <button className="text-xs bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300 transition">
+                        <button
+                          onClick={async () => {
+                            await fetch('/api/snooze', {
+                              method: 'POST',
+                              headers: { 'Content-Type': 'application/json' },
+                              body: JSON.stringify({ itemId: item.id }),
+                            });
+                            // Re‑pull the briefing so the item disappears instantly
+                            generateBriefing();
+                          }}
+                          className="text-xs bg-gray-200 px-3 py-1 rounded-md hover:bg-gray-300 transition"
+                        >
                           Snooze
                         </button>
                       </div>
