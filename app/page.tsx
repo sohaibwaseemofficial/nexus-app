@@ -7,6 +7,7 @@ import ItemCard from '../components/ItemCard';
 import FocusMode from '../components/FocusMode';
 import ToastContainer, { ToastMessage } from '../components/Toast';
 import IntegrationsModal from '../components/IntegrationsModal';
+import LiveTicker from '../components/LiveTicker';
 
 /* ─── Types ─────────────────────────────────────────────── */
 interface Item {
@@ -109,6 +110,7 @@ export default function Home() {
   const [snoozingId, setSnoozingId] = useState<number | null>(null);
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
   const [seeded, setSeeded] = useState(false);
+  const [hasNewItems, setHasNewItems] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   /* Seed on first load via API route */
@@ -269,6 +271,33 @@ export default function Home() {
               Your information streams. <span className="text-[#a5b4fc]">One question.</span> Zero noise.
             </p>
           </motion.header>
+
+          {/* ── Live Ticker ── */}
+          <LiveTicker onNewItem={() => setHasNewItems(true)} />
+
+          {/* ── New-items nudge banner ── */}
+          <AnimatePresence>
+            {hasNewItems && briefing && (
+              <motion.div
+                initial={{ opacity: 0, y: -8, height: 0 }}
+                animate={{ opacity: 1, y: 0, height: 'auto' }}
+                exit={{ opacity: 0, y: -8, height: 0 }}
+                className="overflow-hidden mb-4"
+              >
+                <div className="flex items-center justify-between px-4 py-3 rounded-xl bg-[rgba(99,102,241,0.1)] border border-[rgba(99,102,241,0.3)]">
+                  <p className="text-xs text-[#a5b4fc]">
+                    📬 New items arrived — your briefing may be outdated.
+                  </p>
+                  <button
+                    onClick={() => { setHasNewItems(false); generateBriefing(); }}
+                    className="text-xs font-semibold text-[#6366f1] hover:text-white ml-4 whitespace-nowrap"
+                  >
+                    Refresh ↻
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           {/* ── Intention Input ── */}
           <motion.div
